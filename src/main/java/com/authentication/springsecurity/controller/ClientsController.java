@@ -28,7 +28,7 @@ public class ClientsController {
     FidelityService fidelityService;
 
 
-    @GetMapping(value="/auth", produces = "application/json")
+     @GetMapping(value="/authenticate", produces = "application/json")
     public String checkBasicAuth()
     {
         log.info("****** verify authentication *******");

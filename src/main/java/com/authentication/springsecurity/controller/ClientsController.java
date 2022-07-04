@@ -1,8 +1,10 @@
 package com.authentication.springsecurity.controller;
 
 
-import com.authentication.springsecurity.model.modelClients.Clients;
+import com.authentication.springsecurity.entity.entityClients.Clients;
+import com.authentication.springsecurity.entity.entityClients.FidelityCard;
 import com.authentication.springsecurity.service.clientsService.ClientsServiceImpl;
+import com.authentication.springsecurity.service.clientsService.FidelityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,13 +17,15 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/clients")
-
 @RestController
 @Slf4j
 public class ClientsController {
 
     @Autowired
     ClientsServiceImpl clientsServiceImpl;
+
+    @Autowired
+    FidelityService fidelityService;
 
 
     @GetMapping(value="/auth", produces = "application/json")
@@ -33,21 +37,26 @@ public class ClientsController {
     }
 
     @PostMapping(value="/insert", produces ="application/json")
-    public ResponseEntity<Clients> insertCli(@RequestBody Clients newClient) {
+    public ResponseEntity<Clients> insertCli(@RequestBody Clients newClient, FidelityCard newFidelity) {
         log.info("******* INSERT A CLIENT *******");
         Clients client = clientsServiceImpl.SaveClient(newClient);
+        FidelityCard fidelity = fidelityService.SaveFidelity(newFidelity);
+        if(fidelity != null){
+            client.setFidelity(fidelity);
+        }
         return new ResponseEntity<Clients>(client, HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/delete/{id}", produces = "application/json")
-   public ResponseEntity<Void> deleteClient(@PathVariable("id") String id){
+   public String deleteClient(@PathVariable("id") int id){
         log.info("******* DELETE A CLIENT *******");
-        return new ResponseEntity(clientsServiceImpl.DeleteClient(id), HttpStatus.OK);
+         clientsServiceImpl.DeleteClient(id);
+         return "client supprimé";
+
     }
 
 
     @RequestMapping(value="/search/all", method = RequestMethod.GET, produces ="application/json")
-
     public  ResponseEntity<List<Clients>>  selectAll(){
         log.info("******* GET ALL CLIENTS *******");
         List<Clients> clients = clientsServiceImpl.SelectAll();
@@ -58,10 +67,10 @@ public class ClientsController {
     }
 
     @RequestMapping(value = "/search/{id}", method = RequestMethod.GET, produces ="application/json")
-    public ResponseEntity<Clients> selectClient(@PathVariable("id") String id ){
+    public Optional<Clients> selectClient(@PathVariable("id") String id ){
         log.info("******* GET USER BY ID *******");
         Optional<Clients> client = clientsServiceImpl.SelectClient(id);
-        return new ResponseEntity<Clients>(client, HttpStatus.OK);
+        return client;
 
     }
 
@@ -85,7 +94,7 @@ public class ClientsController {
         return new ResponseEntity<List<Clients>>(clients, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/search/{points}", produces ="application/json")
+  /*   @GetMapping(value = "/search/{points}", produces ="application/json")
     public ResponseEntity<List<Clients>>  selectClientByPoints(@PathVariable("points") int points){
         log.info("******* GET USER BY FIDELITY POINTS *******");
         List<Clients> clients = clientsServiceImpl.FindByPoint(points);
@@ -95,7 +104,7 @@ public class ClientsController {
         return new ResponseEntity<List<Clients>>(clients, HttpStatus.OK);
     }
 
-
+ */
 
 
 }

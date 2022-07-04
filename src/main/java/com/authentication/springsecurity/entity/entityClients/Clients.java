@@ -1,41 +1,42 @@
-package com.authentication.springsecurity.model.modelClients;
+package com.authentication.springsecurity.entity.entityClients;
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.Date;
 
 
-@Data
 @Entity
 @Table(name = "clients")
 public class Clients  {
 
     @Id
-    @GeneratedValue
-    private String id;
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(name = "code")
     private String code;
+    @Column(name = "name")
     private String name;
+    @Column(name = "address")
     private String address;
+    @Column(name = "ville")
     private String ville;
+    @Column(name = "phone")
     private String phone;
+    @Column(name = "email")
     private String email;
+    @Column(name = "active")
     private Boolean active;
+    @Column(name = "creationdate")
     private Date creationdate;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "fidelity", referencedColumnName = "id" )
+    private FidelityCard fidelity;
 
-    private Fidelity fidelity;
 
-    public Clients() {
-    }
 
     public String getName() {
         return name;
@@ -93,19 +94,19 @@ public class Clients  {
         this.creationdate = creationdate;
     }
 
-    public Fidelity getFidelity() {
+    public FidelityCard getFidelity() {
         return fidelity;
     }
 
-    public void setFidelity(Fidelity fidelity) {
+    public void setFidelity(FidelityCard fidelity) {
         this.fidelity = fidelity;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -117,27 +118,7 @@ public class Clients  {
         this.code = code;
     }
 
-    public Clients(String id,
-                   String code,
-                   String name,
-                   String address,
-                   String ville,
-                   String phone,
-                   String email,
-                   boolean active,
-                   Date creationdate,
-                   Fidelity fidelity) {
-        this.id = id;
-        this.code = code;
-        this.name = name;
-        this.address = address;
-        this.ville = ville;
-        this.phone = phone;
-        this.email = email;
-        this.active = active;
-        this.creationdate = creationdate;
-        this.fidelity = fidelity;
-    }
+
 
 
 

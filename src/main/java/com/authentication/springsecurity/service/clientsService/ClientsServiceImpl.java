@@ -1,6 +1,6 @@
 package com.authentication.springsecurity.service.clientsService;
 
-import com.authentication.springsecurity.model.modelClients.Clients;
+import com.authentication.springsecurity.entity.entityClients.Clients;
 import com.authentication.springsecurity.repository.ClientsRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +12,13 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @Service
-@AllArgsConstructor
 public class ClientsServiceImpl implements ClientsService {
+
     @Autowired
     ClientsRepository clientsRepository;
 
     @Override
     public Clients SaveClient(Clients client) {
-
         return clientsRepository.save(client);
     }
 
@@ -41,18 +40,18 @@ public class ClientsServiceImpl implements ClientsService {
         return clientsRepository.findByCode(code);
     }
 
-   @Override
    public List<Clients> FindByName(String name){
         return clientsRepository.findByName(name);
    }
 
+/*     @Override
    public List<Clients> FindByPoint(int points){
         return clientsRepository.findByPoint(points);
-   }
+   } */
 
     @Override
-    public void DeleteClient(String id) {
-        return clientsRepository.deleteById(id);
+    public String DeleteClient(int id) {
+        return "supprimé" + id;
 
     }
 

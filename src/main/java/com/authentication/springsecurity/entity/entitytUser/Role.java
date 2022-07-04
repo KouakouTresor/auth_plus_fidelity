@@ -1,4 +1,4 @@
- package com.authentication.springsecurity.model;
+ package com.authentication.springsecurity.entity.entitytUser;
 
 
 import javax.persistence.*;

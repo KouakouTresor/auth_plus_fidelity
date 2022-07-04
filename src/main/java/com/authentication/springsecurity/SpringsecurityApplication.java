@@ -1,9 +1,14 @@
 package com.authentication.springsecurity;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
-@SpringBootApplication
+/*@SpringBootApplication*/
+@Configuration
+@EnableAutoConfiguration
 public class SpringsecurityApplication {
 
 	public static void main(String[] args) {

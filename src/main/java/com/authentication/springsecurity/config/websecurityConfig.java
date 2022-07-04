@@ -1,5 +1,5 @@
  package com.authentication.springsecurity.config;
-import com.authentication.springsecurity.service.UserDetailsServiceImpl;
+import com.authentication.springsecurity.service.userService.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;

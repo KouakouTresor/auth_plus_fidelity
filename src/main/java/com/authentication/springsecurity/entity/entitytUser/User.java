@@ -1,5 +1,7 @@
-package com.authentication.springsecurity.model;
+package com.authentication.springsecurity.entity.entitytUser;
 
+
+import com.authentication.springsecurity.entity.entitytUser.Role;
 
 import javax.persistence.*;
 import java.util.HashSet;

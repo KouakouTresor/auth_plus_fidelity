@@ -1,10 +1,10 @@
-package com.authentication.springsecurity.service;
+package com.authentication.springsecurity.service.userService;
 
 import java.util.*;
 
 
-import com.authentication.springsecurity.model.Role;
-import com.authentication.springsecurity.model.User;
+import com.authentication.springsecurity.entity.entitytUser.Role;
+import com.authentication.springsecurity.entity.entitytUser.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

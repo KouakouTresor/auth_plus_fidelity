@@ -6,8 +6,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+
+import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @Service
@@ -17,40 +18,42 @@ public class ClientsServiceImpl implements ClientsService {
     ClientsRepository clientsRepository;
 
     @Override
-    public Mono<Clients> SaveClient(Clients client) {
+    public Clients SaveClient(Clients client) {
 
         return clientsRepository.save(client);
     }
 
     @Override
-    public Mono<Clients> SelectClient(String id) {
+    public Optional<Clients> SelectClient(String id) {
 
         return clientsRepository.findById(id);
     }
 
     @Override
-    public Flux<Clients> SelectAll() {
+    public List<Clients> SelectAll() {
 
         return clientsRepository.findAll();
     }
 
     @Override
-    public Mono<Clients> FindByFidelityCode(String code){
+    public Clients FindByFidelityCode(String code){
 
         return clientsRepository.findByCode(code);
     }
 
    @Override
-   public Flux<Clients> FindByName(String name){
+   public List<Clients> FindByName(String name){
         return clientsRepository.findByName(name);
    }
 
-   public Flux<Clients> FindByPoint(int points){
+   public List<Clients> FindByPoint(int points){
         return clientsRepository.findByPoint(points);
    }
+
     @Override
-    public Mono<Void> DeleteClient(String id) {
+    public void DeleteClient(String id) {
         return clientsRepository.deleteById(id);
+
     }
 
 }

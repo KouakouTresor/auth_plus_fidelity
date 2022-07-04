@@ -1,19 +1,20 @@
 package com.authentication.springsecurity.model.modelClients;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.annotation.Id;
 
-import java.io.Serial;
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Table;
 
-@Document
+
 @Data
-public class Fidelity implements Serializable {
-    @Serial
-    private static final long serialVersionUID = -7003022118077818002L;
+@Entity
+@Table(name = "fidelity_card")
+public class Fidelity {
+    @Id
+    @GeneratedValue
+    private String id;
     private int points;
     private String lastshop;
 

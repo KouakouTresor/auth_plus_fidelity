@@ -6,16 +6,21 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Table;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
-@Document
+
 @Data
-public class Clients implements Serializable {
-    @Serial
-    private static final long serialVersionUID = -664869542688675108L;
+@Entity
+@Table(name = "clients")
+public class Clients  {
+
     @Id
+    @GeneratedValue
     private String id;
     private String code;
     private String name;

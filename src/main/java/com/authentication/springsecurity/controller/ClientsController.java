@@ -9,8 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+
+import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/clients")
@@ -24,66 +25,74 @@ public class ClientsController {
 
 
     @GetMapping(value="/auth", produces = "application/json")
-    public Mono<String> checkBasicAuth()
+    public String checkBasicAuth()
     {
-        log.info("****** Verifica Autenticazione *******");
+        log.info("****** verify authentication *******");
 
-        return Mono.just("Auteticazione Ok");
+        return "authentication Ok";
     }
 
     @PostMapping(value="/insert", produces ="application/json")
-    public ResponseEntity<Mono<Clients>> insertCli(@RequestBody Clients newClient) {
+    public ResponseEntity<Clients> insertCli(@RequestBody Clients newClient) {
         log.info("******* INSERT A CLIENT *******");
-        Mono<Clients> client = clientsServiceImpl.SaveClient(newClient);
-        return new ResponseEntity<Mono<Clients>>(client, HttpStatus.CREATED);
+        Clients client = clientsServiceImpl.SaveClient(newClient);
+        return new ResponseEntity<Clients>(client, HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/delete/{id}", produces = "application/json")
-   public ResponseEntity<Mono<Void>> deleteClient(@PathVariable("id") String id){
+   public ResponseEntity<Void> deleteClient(@PathVariable("id") String id){
         log.info("******* DELETE A CLIENT *******");
-        return new ResponseEntity<Mono<Void>> (clientsServiceImpl.DeleteClient(id), HttpStatus.OK);
+        return new ResponseEntity(clientsServiceImpl.DeleteClient(id), HttpStatus.OK);
     }
 
 
     @RequestMapping(value="/search/all", method = RequestMethod.GET, produces ="application/json")
 
-    public  ResponseEntity<Flux<Clients>>  selectAll(){
+    public  ResponseEntity<List<Clients>>  selectAll(){
         log.info("******* GET ALL CLIENTS *******");
-        Flux<Clients> clients = clientsServiceImpl.SelectAll()
-            .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Clients not found")));
-        return new ResponseEntity<Flux<Clients>>(clients, HttpStatus.OK);
+        List<Clients> clients = clientsServiceImpl.SelectAll();
+        if(clients == null){
+            new ResponseStatusException(HttpStatus.NOT_FOUND, "Clients not found");
+        }
+        return new ResponseEntity<List<Clients>>(clients, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/search/{id}", method = RequestMethod.GET, produces ="application/json")
-    public ResponseEntity<Mono<Clients>> selectClient(@PathVariable("id") String id ){
+    public ResponseEntity<Clients> selectClient(@PathVariable("id") String id ){
         log.info("******* GET USER BY ID *******");
-        Mono<Clients> client = clientsServiceImpl.SelectClient(id);
-        return new ResponseEntity<Mono<Clients>>(client, HttpStatus.OK);
+        Optional<Clients> client = clientsServiceImpl.SelectClient(id);
+        return new ResponseEntity<Clients>(client, HttpStatus.OK);
 
     }
 
     @RequestMapping(value="/search/{code}", method = RequestMethod.GET, produces ="application/json")
-    public ResponseEntity<Mono<Clients>> selectByFidelityCode(@PathVariable("code") String code){
+    public ResponseEntity<Clients> selectByFidelityCode(@PathVariable("code") String code){
         log.info("******* GET USER BY CODE FIDELITY"+ code + "*******");
-        Mono<Clients> client = clientsServiceImpl.FindByFidelityCode(code)
-         .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Clients not found")));
-        return new ResponseEntity<Mono<Clients>>(client,  HttpStatus.OK);
+        Clients client = clientsServiceImpl.FindByFidelityCode(code);
+        if(client == null){
+            new ResponseStatusException(HttpStatus.NOT_FOUND, "Clients not found");
+        }
+        return new ResponseEntity<Clients>(client,  HttpStatus.OK);
     }
 
     @RequestMapping(value = "/search/{name}", method = RequestMethod.GET, produces ="application/json")
-    public ResponseEntity<Flux<Clients>> selectClientByName(@PathVariable("name") String name ){
+    public ResponseEntity<List<Clients>> selectClientByName(@PathVariable("name") String name ){
         log.info("******* GET USER BY NAME *******");
-        Flux<Clients> clients = clientsServiceImpl.FindByName(name)
-                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Clients not found")));
-        return new ResponseEntity<Flux<Clients>>(clients, HttpStatus.OK);
+        List<Clients> clients = clientsServiceImpl.FindByName(name);
+                if(clients == null){
+                    new ResponseStatusException(HttpStatus.NOT_FOUND, "Clients not found");
+                }
+        return new ResponseEntity<List<Clients>>(clients, HttpStatus.OK);
     }
 
     @GetMapping(value = "/search/{points}", produces ="application/json")
-    public ResponseEntity<Flux<Clients>>  selectClientByPoints(@PathVariable("points") int points){
+    public ResponseEntity<List<Clients>>  selectClientByPoints(@PathVariable("points") int points){
         log.info("******* GET USER BY FIDELITY POINTS *******");
-        Flux<Clients> clients = clientsServiceImpl.FindByPoint(points)
-                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Clients not found")));
-        return new ResponseEntity<Flux<Clients>>(clients, HttpStatus.OK);
+        List<Clients> clients = clientsServiceImpl.FindByPoint(points);
+        if(clients == null){
+            new ResponseStatusException(HttpStatus.NOT_FOUND, "Clients not found");
+        }
+        return new ResponseEntity<List<Clients>>(clients, HttpStatus.OK);
     }
 
 

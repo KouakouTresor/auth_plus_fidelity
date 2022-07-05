@@ -4,15 +4,19 @@ import lombok.Data;
 
 
 import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
 
 
 @Entity
 @Table(name = "fidelity_card")
-public class FidelityCard {
+public class FidelityCard implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -6361520267538398226L;
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "points")
     private int points;
@@ -39,11 +43,11 @@ public class FidelityCard {
         this.points = points;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

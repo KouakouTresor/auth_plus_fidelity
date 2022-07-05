@@ -2,7 +2,6 @@ package com.authentication.springsecurity.service.clientsService;
 
 import com.authentication.springsecurity.entity.entityClients.Clients;
 import com.authentication.springsecurity.repository.ClientsRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,7 +22,7 @@ public class ClientsServiceImpl implements ClientsService {
     }
 
     @Override
-    public Optional<Clients> SelectClient(int id) {
+    public Optional<Clients> SelectClient(Long id) {
 
         return clientsRepository.findById(String.valueOf(id));
     }
@@ -40,7 +39,13 @@ public class ClientsServiceImpl implements ClientsService {
         return clientsRepository.findByCode(code);
     }
 
-   public List<Clients> FindByName(String name){
+    public Optional<Clients> FindByiD(Long id){
+
+        return clientsRepository.findById(id);
+    }
+
+
+    public Optional<Clients> FindByName(String name){
         return clientsRepository.findByName(name);
    }
 
@@ -50,7 +55,7 @@ public class ClientsServiceImpl implements ClientsService {
    } */
 
     @Override
-    public String DeleteClient(int id) {
+    public String DeleteClient(Long id) {
         return "supprimé" + id;
 
     }

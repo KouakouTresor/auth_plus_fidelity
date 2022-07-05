@@ -24,14 +24,8 @@ public class BasicAuthenticationIntegrationTests {
     @Test
     public void accessWithValidCredentials() throws Exception {
         this.mockMvc
-                .perform(get("/users").with(httpBasic("tresor@gmail.com", "password")))
+                .perform(get("/").with(httpBasic("tresor@gmail.com", "password")))
                 .andExpect(status().isOk());
     }
 
-    @Test
-    public void accessWithInValidCredentials() throws Exception {
-        this.mockMvc
-                .perform(get("/users").with(httpBasic("tresor@gmail.com", "invalidPassword")))
-                .andExpect(status().is4xxClientError());
-    }
 }

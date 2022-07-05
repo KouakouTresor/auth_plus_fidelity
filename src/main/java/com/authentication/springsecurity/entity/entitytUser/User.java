@@ -1,14 +1,18 @@
 package com.authentication.springsecurity.entity.entitytUser;
 
 import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Collection;
 
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-public class User {
+public class User implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -4452281335051082272L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "firstName")

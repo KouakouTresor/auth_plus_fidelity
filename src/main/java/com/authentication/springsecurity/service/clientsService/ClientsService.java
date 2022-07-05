@@ -8,11 +8,11 @@ import java.util.Optional;
 
 
 public interface ClientsService {
-    public Optional<Clients> SelectClient(int id);
+    public Optional<Clients> SelectClient(Long id);
     public List<Clients> SelectAll();
     public Clients SaveClient(Clients client);
-    public String DeleteClient(int id);
+    public String DeleteClient(Long id);
     public Clients FindByFidelityCode(String code);
-    public List<Clients> FindByName(String name);
+    public Optional<Clients> FindByName(String name);
    /*  public List<Clients> FindByPoint(int points); */
 }

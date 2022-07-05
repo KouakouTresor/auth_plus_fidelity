@@ -4,17 +4,21 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 
 
 @Entity
 @Table(name = "clients")
-public class Clients  {
+public class Clients implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = -6981912029598610139L;
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(name = "code")
     private String code;
     @Column(name = "name")
@@ -102,11 +106,11 @@ public class Clients  {
         this.fidelity = fidelity;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

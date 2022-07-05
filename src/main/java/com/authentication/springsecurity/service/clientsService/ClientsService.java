@@ -8,7 +8,7 @@ import java.util.Optional;
 
 
 public interface ClientsService {
-    public Optional<Clients> SelectClient(String id);
+    public Optional<Clients> SelectClient(int id);
     public List<Clients> SelectAll();
     public Clients SaveClient(Clients client);
     public String DeleteClient(int id);

@@ -1,4 +1,4 @@
-package com.authentication.springsecurity.service.userService;
+/* package com.authentication.springsecurity.service.userService;
 
 import java.util.*;
 
@@ -63,4 +63,4 @@ public class UserDetailsImpl implements UserDetails {
         return user.isEnabled();
     }
 
-}
+} */

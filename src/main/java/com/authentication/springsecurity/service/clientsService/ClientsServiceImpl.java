@@ -23,9 +23,9 @@ public class ClientsServiceImpl implements ClientsService {
     }
 
     @Override
-    public Optional<Clients> SelectClient(String id) {
+    public Optional<Clients> SelectClient(int id) {
 
-        return clientsRepository.findById(id);
+        return clientsRepository.findById(String.valueOf(id));
     }
 
     @Override

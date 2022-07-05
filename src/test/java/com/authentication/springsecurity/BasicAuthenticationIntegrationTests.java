@@ -1,4 +1,5 @@
 package com.authentication.springsecurity;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +17,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("it")
 @AutoConfigureMockMvc
 @RunWith(SpringJUnit4ClassRunner.class)
-class SpringsecurityApplicationTests {
+public class BasicAuthenticationIntegrationTests {
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     public void accessWithValidCredentials() throws Exception {
         this.mockMvc
-                .perform(get("/clients").with(httpBasic("tresor@gmail.com", "password")))
+                .perform(get("/users").with(httpBasic("tresor@gmail.com", "password")))
                 .andExpect(status().isOk());
     }
 
-	
+    @Test
+    public void accessWithInValidCredentials() throws Exception {
+        this.mockMvc
+                .perform(get("/users").with(httpBasic("tresor@gmail.com", "invalidPassword")))
+                .andExpect(status().is4xxClientError());
+    }
 }

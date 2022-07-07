@@ -22,9 +22,9 @@ public class ClientsServiceImpl implements ClientsService {
     }
 
     @Override
-    public Optional<Clients> SelectClient(Long id) {
+    public Clients SelectClient(Long id) {
 
-        return clientsRepository.findById(String.valueOf(id));
+        return clientsRepository.findById(id);
     }
 
     @Override
@@ -39,13 +39,13 @@ public class ClientsServiceImpl implements ClientsService {
         return clientsRepository.findByCode(code);
     }
 
-    public Optional<Clients> FindByiD(Long id){
+    public Clients FindByiD(Long id){
 
         return clientsRepository.findById(id);
     }
 
 
-    public Optional<Clients> FindByName(String name){
+    public Clients FindByName(String name){
         return clientsRepository.findByName(name);
    }
 
@@ -55,8 +55,8 @@ public class ClientsServiceImpl implements ClientsService {
    } */
 
     @Override
-    public String DeleteClient(Long id) {
-        return "supprimé" + id;
+    public void DeleteClient(Long id) {
+        clientsRepository.deleteById(id);
 
     }
 

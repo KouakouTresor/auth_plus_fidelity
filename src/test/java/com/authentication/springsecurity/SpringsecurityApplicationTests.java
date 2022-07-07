@@ -1,9 +1,8 @@
-package com.authentication.springsecurity;
+/* package com.authentication.springsecurity;
 
 
 import com.authentication.springsecurity.entity.entityClients.Clients;
 import com.authentication.springsecurity.entity.entityClients.FidelityCard;
-import com.authentication.springsecurity.repository.ClientsRepository;
 import com.authentication.springsecurity.repository.FidelityRepository;
 import com.authentication.springsecurity.service.clientsService.ClientsServiceImpl;
 import org.junit.FixMethodOrder;
@@ -20,7 +19,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import static org.junit.Assert.assertNotEquals;
@@ -69,8 +67,8 @@ public class SpringsecurityApplicationTests {
     @Test
     public void b_getClientTest(){
 
-        Optional<Clients> client = clientsServiceImpl.FindByiD(1L);
-        assertTrue(client.isPresent());
+        Clients client = clientsServiceImpl.SelectClient(1L);
+        assertTrue(client.);
     }
 
     @Test
@@ -84,7 +82,7 @@ public class SpringsecurityApplicationTests {
     @Test
     @Rollback(value = false)
     public void d_updateClientTest(){
-        Clients client = clientsServiceImpl.FindByiD(1L).get();
+        Lod client = clientsServiceImpl.SelectClient(1L).getId();
         client.setName("Christina");
         clientsServiceImpl.SaveClient(client);
         assertNotEquals("belli", clientsServiceImpl.FindByiD(1L).get().getName());
@@ -125,4 +123,4 @@ public class SpringsecurityApplicationTests {
     }
 
 
-}
+} */

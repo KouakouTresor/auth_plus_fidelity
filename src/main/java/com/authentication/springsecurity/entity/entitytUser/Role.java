@@ -1,14 +1,10 @@
  package com.authentication.springsecurity.entity.entitytUser;
 
-
 import javax.persistence.*;
-import java.io.Serial;
-import java.io.Serializable;
 
  @Entity
-public class Role implements Serializable {
-     @Serial
-     private static final long serialVersionUID = -7211311465818442678L;
+public class Role {
+
      @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

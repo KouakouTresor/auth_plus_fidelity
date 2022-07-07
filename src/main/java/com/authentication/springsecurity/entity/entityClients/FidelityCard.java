@@ -1,19 +1,13 @@
 package com.authentication.springsecurity.entity.entityClients;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-
 
 import javax.persistence.*;
-import java.io.Serial;
-import java.io.Serializable;
-
 
 @Entity
 @Table(name = "fidelity_card")
-public class FidelityCard implements Serializable {
-    @Serial
-    private static final long serialVersionUID = -6361520267538398226L;
+public class FidelityCard {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

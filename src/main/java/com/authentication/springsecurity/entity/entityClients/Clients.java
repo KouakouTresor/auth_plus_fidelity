@@ -1,21 +1,13 @@
 package com.authentication.springsecurity.entity.entityClients;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-
 import javax.persistence.*;
-
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.Date;
 
 
 @Entity
 @Table(name = "clients")
-public class Clients implements Serializable {
+public class Clients {
 
-    @Serial
-    private static final long serialVersionUID = -6981912029598610139L;
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

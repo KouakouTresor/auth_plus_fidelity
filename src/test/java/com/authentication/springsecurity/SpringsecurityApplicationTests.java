@@ -1,4 +1,4 @@
-/* package com.authentication.springsecurity;
+package com.authentication.springsecurity;
 
 
 import com.authentication.springsecurity.entity.entityClients.Clients;
@@ -7,6 +7,7 @@ import com.authentication.springsecurity.repository.FidelityRepository;
 import com.authentication.springsecurity.service.clientsService.ClientsServiceImpl;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.junit.Assert.assertNotEquals;
@@ -34,8 +36,6 @@ public class SpringsecurityApplicationTests {
     @Autowired
     private ClientsServiceImpl clientsServiceImpl;
 
-    @Autowired
-    private FidelityRepository fidelityRepository;
 
 
     @Test
@@ -68,7 +68,7 @@ public class SpringsecurityApplicationTests {
     public void b_getClientTest(){
 
         Clients client = clientsServiceImpl.SelectClient(1L);
-        assertTrue(client.);
+        assertTrue(Objects.equals(client.getId(), 1L));
     }
 
     @Test
@@ -82,13 +82,13 @@ public class SpringsecurityApplicationTests {
     @Test
     @Rollback(value = false)
     public void d_updateClientTest(){
-        Lod client = clientsServiceImpl.SelectClient(1L).getId();
-        client.setName("Christina");
+        Clients client = clientsServiceImpl.SelectClient(1L);
+        client.setName("Giovanna");
         clientsServiceImpl.SaveClient(client);
-        assertNotEquals("belli", clientsServiceImpl.FindByiD(1L).get().getName());
-
+        assertNotEquals("belli", clientsServiceImpl.SelectClient(1L).getName());
     }
 
+    /*
     @Test
     @Rollback(value = false)
     public void deleteRecetteTest(){
@@ -113,14 +113,12 @@ public class SpringsecurityApplicationTests {
 
         Long id = saved.getId();
 
-
-
         clientsServiceImpl.DeleteClient(id);
 
-        Optional<Clients> find = clientsServiceImpl.FindByiD(id);
+        Clients find = clientsServiceImpl.FindByiD(id);
 
-        assertTrue(find.isEmpty());
+         Assertions.assertNull(find);
     }
 
-
-} */
+*/
+}

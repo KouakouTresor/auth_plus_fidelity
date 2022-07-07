@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClientsRepository extends JpaRepository<Clients, String> {
     public Clients findByCode(String code);
-    public void deleteById(Long id);
     Clients findByName(String name);
     Clients findById(Long id);
+    void deleteById(Long name);
 
 
     /*     public List<Clients> findByPoint(int points); */

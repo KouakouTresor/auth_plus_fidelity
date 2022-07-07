@@ -1,0 +1,55 @@
+image: maven:3.8.6-jdk-11
+
+services:
+  - docker:dind
+
+cache:
+  paths:
+    - .m2/repository
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  DOCKER_HOST: tcp://docker:2375
+  IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  IMAGE_TAG: ${CI_COMMIT_REF_SLUG}
+
+stages:
+  - build
+  - test
+  - package
+  - dockerization
+
+project-build:
+  stage: build
+  script:
+    - mvn clean compile
+
+project-test:
+  stage: test
+  script:
+    - mvn test
+
+package:
+  stage: package
+  script:
+    - mvn package
+  artifacts:
+    paths:
+      - target/*.jar
+
+dockerization:
+  stage: dockerization
+  image: docker:git
+  services:
+    - docker:dind
+  dependencies:
+    - package
+  variables:
+    DOCKER_DRIVER: overlay
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  script:
+    - docker build --tag=$IMAGE_TAG . --pull -t $IMAGE_NAME
+    - docker push $IMAGE_NAME
+  only:
+    - develop

@@ -1,5 +1,6 @@
 package com.authentication.springsecurity.entity.entityClients;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -36,6 +37,7 @@ public class Clients implements Serializable {
     @Column(name = "creationdate")
     private Date creationdate;
 
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "fidelity", referencedColumnName = "id" )
     private FidelityCard fidelity;

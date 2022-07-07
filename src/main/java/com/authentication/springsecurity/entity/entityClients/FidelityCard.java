@@ -1,5 +1,6 @@
 package com.authentication.springsecurity.entity.entityClients;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 
@@ -32,6 +33,7 @@ public class FidelityCard implements Serializable {
     public FidelityCard() {
     }
 
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "fidelity")
     private Clients client;
 
